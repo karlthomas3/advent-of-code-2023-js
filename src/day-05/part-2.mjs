@@ -7,14 +7,27 @@ export async function processPart2(input) {
       .split("\n")
       .slice(1)
       .map((line) => line.split(" ").map(Number))
+      .sort((a, b) => a[1] - b[1])
   );
   // console.log(seeds, "\n", maps);
 
   function mapNum(num, map) {
-    const mappedNum = map.find(
-      ([destStart, srcStart, range]) => num >= srcStart && num < srcStart + range
-    );
-    return mappedNum ? mappedNum[0] + (num - mappedNum[1]) : num;
+    let low = 0;
+    let high = map.length - 1;
+
+    while (low <= high) {
+      let mid = Math.floor((low + high) / 2);
+      let [destStart, srcStart, rangeLength] = map[mid];
+
+      if (num >= srcStart && num < srcStart + rangeLength) {
+        return destStart + (num - srcStart);
+      } else if (num < srcStart) {
+        high = mid - 1;
+      } else {
+        low = mid + 1;
+      }
+    }
+    return num;
   }
 
   function findLocation(seed, maps) {
