@@ -1,15 +1,19 @@
-import fs from "fs/promises";
-import path from "path";
+/** @format */
 
-import { processPart1 } from "./part-1.mjs";
-import { processPart2 } from "./part-2.mjs";
+import fs from 'fs/promises';
+import path from 'path';
+
+import { processPart1 } from './part-1.mjs';
+import { processPart2 } from './part-2.mjs';
+
+const testData = `.....\n.S-7.\n.|.|.\n.L-J.\n.....`;
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
-const filePath = path.join(__dirname, "input.txt");
+const filePath = path.join(__dirname, 'input.txt');
 // console.log(filePath);
 
-const input = await fs.readFile(filePath, "utf8").catch((err) => {
-  console.error("Error reading file:", err);
+const input = await fs.readFile(filePath, 'utf8').catch((err) => {
+	console.error('Error reading file:', err);
 });
 
 const part1Result = await processPart1(input);
